@@ -1,9 +1,37 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 
+from services.models import Service
+
+
+class PromotionChannels(models.IntegerChoices):
+    """Каналы продвижения рекламной компании."""
+
+    SITE = 1
+    SOCIAL_NETWORK = 2
+    INTEGRATION = 3
+
 
 class Advertising(models.Model):
-    name = models.CharField(max_length=40)
-    description = models.CharField(max_length=200)
-    promotion_channel = ...
-    budget = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    """
+    Модель рекламной компании.
+    Attributes:
+        title (CharField): Название рекламной компании.
+        service (OneToOneField): Связь с orm моделью Service.
+        promotion_channel (PositiveSmallIntegerField): Канал продвижения.
+        budget (DecimalField): Бюджет рекламной компании.
+    """
+
+    title = models.CharField(max_length=40, verbose_name="Название рекламной компании")
+    service = models.OneToOneField(Service, on_delete=models.CASCADE, related_name='advertising')
+    promotion_channel = models.PositiveSmallIntegerField(
+        verbose_name="Канал продвижения",
+        choices=PromotionChannels.choices,
+        default=PromotionChannels.SITE,
+    )
+    budget = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        verbose_name="Бюджет",
+    )
