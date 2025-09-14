@@ -1,0 +1,64 @@
+services:
+  db:
+    container_name: "postgres_crm"
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - PGDATA=./data/db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  crm:
+    container_name: django_crm
+    build:
+      dockerfile: ./DockerFile
+    volumes: 
+      - .:/crm_system 
+      - ./templates/static:/crm/static
+    env_file: 
+      - ./.env 
+    command: sh -c "python manage.py collectstatic --no-input &&
+                    python manage.py makemigrations &&
+                    python manage.py migrate &&
+                    gunicorn crm_system.wsgi:application --bind 0.0.0.0:8000"
+    ports: 
+      - 8000:8000
+    restart: always
+    networks:
+      - backend
+    depends_on:
+      - db
+      
+
+  nginx:
+    container_name: nginx_crm
+    working_dir: /crm
+    image: nginx:stable-alpine
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./templates/static:/crm/static
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    links:
+      - crm
+    depends_on:
+      - crm
+    networks:
+      - backend
+
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
