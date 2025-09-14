@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'django_filters',
+    'debug_toolbar',
     'users.apps.UsersConfig',
     'advertising_companies.apps.AdvertisingCompaniesConfig',
     'services.apps.ServicesConfig',
@@ -74,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'crm_system.urls'
@@ -95,6 +97,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crm_system.wsgi.application'
 
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
