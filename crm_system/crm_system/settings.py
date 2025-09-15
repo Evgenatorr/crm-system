@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'debug_toolbar',
+    'drf_spectacular',
     'users.apps.UsersConfig',
     'advertising_companies.apps.AdvertisingCompaniesConfig',
     'services.apps.ServicesConfig',
@@ -99,6 +100,15 @@ WSGI_APPLICATION = 'crm_system.wsgi.application'
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'CRM system',
+    'DESCRIPTION': 'My crm system',
+    'VERSION': '1.0.0',
 }
 
 # Database
