@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 
-from services.models import Service
+from products.models import Product
 
 
 class PromotionChannels(models.IntegerChoices):
@@ -17,13 +17,13 @@ class Advertising(models.Model):
     Модель рекламной компании.
     Attributes:
         title (CharField): Название рекламной компании.
-        service (OneToOneField): Связь с orm моделью Service.
+        service (OneToOneField): Связь с orm моделью Product.
         promotion_channel (PositiveSmallIntegerField): Канал продвижения.
         budget (DecimalField): Бюджет рекламной компании.
     """
 
     title = models.CharField(max_length=40, verbose_name="Название рекламной компании")
-    service = models.OneToOneField(Service, on_delete=models.CASCADE, related_name='advertising')
+    service = models.OneToOneField(Product, on_delete=models.CASCADE, related_name='advertising')
     promotion_channel = models.PositiveSmallIntegerField(
         verbose_name="Канал продвижения",
         choices=PromotionChannels.choices,

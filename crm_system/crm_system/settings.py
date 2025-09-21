@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 import environ
 
@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'users.apps.UsersConfig',
     'advertising_companies.apps.AdvertisingCompaniesConfig',
-    'services.apps.ServicesConfig',
     'contracts.apps.ContractsConfig',
     'leads.apps.LeadsConfig',
     'products.apps.ProductsConfig',
@@ -84,7 +83,7 @@ ROOT_URLCONF = 'crm_system.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
