@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 import environ
 
@@ -58,9 +58,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'debug_toolbar',
+    'drf_spectacular',
     'users.apps.UsersConfig',
     'advertising_companies.apps.AdvertisingCompaniesConfig',
-    'services.apps.ServicesConfig',
     'contracts.apps.ContractsConfig',
     'leads.apps.LeadsConfig',
     'products.apps.ProductsConfig',
@@ -83,7 +83,7 @@ ROOT_URLCONF = 'crm_system.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,6 +99,15 @@ WSGI_APPLICATION = 'crm_system.wsgi.application'
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'CRM system',
+    'DESCRIPTION': 'My crm system',
+    'VERSION': '1.0.0',
 }
 
 # Database

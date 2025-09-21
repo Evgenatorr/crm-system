@@ -20,14 +20,14 @@ services:
     build:
       dockerfile: ./DockerFile
     volumes: 
-      - .:/crm_system 
+      - .:/crm
       - ./templates/static:/crm/static
     env_file: 
       - ./.env 
     command: sh -c "python manage.py collectstatic --no-input &&
-                    python manage.py makemigrations &&
+                    python manage.py makemigrations users advertising_companies contracts leads products customers &&
                     python manage.py migrate &&
-                    gunicorn crm_system.wsgi:application --bind 0.0.0.0:8000"
+                    gunicorn crm_system.wsgi:application --bind 0.0.0.0:8000 --reload"
     ports: 
       - 8000:8000
     restart: always
