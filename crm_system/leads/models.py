@@ -7,14 +7,17 @@ class PotentialClient(models.Model):
     """
     Модель потенциального клиента.
     Attributes:
-        full_name (CharField): Полное имя пользователя.
+        first_name (CharField): Имя пользователя.
+        last_name (CharField): Фамилия пользователя.
         email (EmailField): Email пользователя.
         phone (CharField): Телефон пользователя.
         advertising (ForeignKey): Связь с orm моделью Advertising.
     """
-
-    full_name = models.CharField(
-        max_length=60, blank=True, null=True, verbose_name="Полное имя"
+    first_name = models.CharField(
+        max_length=60, blank=True, null=True, verbose_name="Имя"
+    )
+    last_name = models.CharField(
+        max_length=60, blank=True, null=True, verbose_name="Фамилия"
     )
     email = models.EmailField(max_length=254, unique=True)
     phone = models.PositiveIntegerField(

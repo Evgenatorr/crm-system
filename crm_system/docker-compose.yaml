@@ -27,6 +27,7 @@ services:
     command: sh -c "python manage.py collectstatic --no-input &&
                     python manage.py makemigrations users advertising_companies contracts leads products customers &&
                     python manage.py migrate &&
+                    python manage.py add_group_permission &&
                     gunicorn crm_system.wsgi:application --bind 0.0.0.0:8000 --reload"
     ports: 
       - 8000:8000
