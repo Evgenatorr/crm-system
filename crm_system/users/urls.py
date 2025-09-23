@@ -1,14 +1,19 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import EmployeeViewSet
+from django.contrib.auth.views import LoginView
+from .views import IndexView, MyLogoutView
 
 
 app_name = "users"
 
-routers = DefaultRouter()
-routers.register("employee", EmployeeViewSet)
-
 
 urlpatterns = [
-    path("api/", include(routers.urls)),
+    path("", IndexView.as_view(), name='index'),
+    path(
+        "login/",
+        LoginView.as_view(
+            template_name="registration/login.html",
+        ),
+        name="login",
+    ),
+    path("logout/", MyLogoutView.as_view(), name="logout"),
 ]
