@@ -28,6 +28,7 @@ services:
                     python manage.py makemigrations users advertising_companies contracts leads products customers &&
                     python manage.py migrate &&
                     python manage.py add_group_permission &&
+                    python manage.py create_superuser &&
                     gunicorn crm_system.wsgi:application --bind 0.0.0.0:8000 --reload"
     ports: 
       - 8000:8000
