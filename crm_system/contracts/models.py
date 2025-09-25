@@ -33,9 +33,9 @@ class Contract(models.Model):
     """
 
     title = models.CharField(max_length=40)
-    service = models.ForeignKey(Product, on_delete=models.CASCADE)
+    service = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='contracts')
     document = models.FileField(upload_to=contract_document_directory_path)
-    sum = models.DecimalField(
+    cost = models.DecimalField(
         max_digits=10, decimal_places=2, validators=[MinValueValidator(0)]
     )
     start_date = models.DateTimeField(auto_now_add=True)
