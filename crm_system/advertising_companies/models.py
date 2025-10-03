@@ -24,7 +24,10 @@ class Advertising(models.Model):
 
     title = models.CharField(max_length=40, verbose_name="Название рекламной компании")
     service = models.OneToOneField(
-        Product, on_delete=models.CASCADE, related_name="advertising"
+        Product,
+        on_delete=models.CASCADE,
+        related_name="advertising",
+        verbose_name="Услуга",
     )
     promotion_channel = models.PositiveSmallIntegerField(
         verbose_name="Канал продвижения",
@@ -44,11 +47,15 @@ class Advertising(models.Model):
 
     @property
     def customers_count(self):
-        return self.active_clients.count()
-    
+        return self.potential_clients.filter(active_client__isnull=False).count()
+
     @property
     def profit(self):
-        summ_contracts = self.service.contracts.all().aggregate(summ=models.Sum('cost'))
-        budget_ads = self.budget
-        result = summ_contracts['summ'] / budget_ads * 100
-        return result
+        summ_contracts = self.service.contracts.all().aggregate(summ=models.Sum("cost"))
+        if summ_contracts["summ"]:
+            budget_ads = self.budget
+            result = round(summ_contracts["summ"] / budget_ads * 100, 2)
+            return result
+    
+    def __str__(self) -> str:
+        return self.title

@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'django_filters',
     'debug_toolbar',
     'drf_spectacular',
+    'phonenumber_field',
     'users.apps.UsersConfig',
     'advertising_companies.apps.AdvertisingCompaniesConfig',
     'contracts.apps.ContractsConfig',

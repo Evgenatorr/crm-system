@@ -7,34 +7,35 @@ from django.views.generic import (
 )
 from django.urls import reverse, reverse_lazy
 from .models import PotentialClient
+from permissions import OperatorRequiredMixin
 
 
-class LeadRetrieveView(DetailView):
+class LeadRetrieveView(OperatorRequiredMixin, DetailView):
     model = PotentialClient
     template_name = "leads/leads-detail.html"
     queryset = PotentialClient.objects.all()
 
 
-class LeadCreateView(CreateView):
+class LeadCreateView(OperatorRequiredMixin, CreateView):
     model = PotentialClient
     fields = "__all__"
     template_name = "leads/leads-create.html"
     success_url = reverse_lazy("leads:leads-list")
 
 
-class LeadListView(ListView):
+class LeadListView(OperatorRequiredMixin, ListView):
     template_name = "leads/leads-list.html"
     model = PotentialClient
     context_object_name = "leads"
 
 
-class LeadDeleteView(DeleteView):
+class LeadDeleteView(OperatorRequiredMixin, DeleteView):
     template_name = "leads/leads-delete.html"
     model = PotentialClient
     success_url = reverse_lazy("leads:leads-list")
 
 
-class LeadUpdateView(UpdateView):
+class LeadUpdateView(OperatorRequiredMixin, UpdateView):
     model = PotentialClient
     fields = "__all__"
     template_name = "leads/leads-edit.html"

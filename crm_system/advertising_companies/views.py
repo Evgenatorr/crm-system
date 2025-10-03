@@ -6,36 +6,36 @@ from django.views.generic import (
     UpdateView,
 )
 from django.urls import reverse, reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Advertising
+from permissions import MarketerRequiredMixin
 
 
-class AdvertisingRetrieveView(LoginRequiredMixin, DetailView):
+class AdvertisingRetrieveView(MarketerRequiredMixin, DetailView):
     model = Advertising
     template_name = "ads/ads-detail.html"
     queryset = Advertising.objects.all()
 
 
-class AdvertisingCreateView(LoginRequiredMixin, CreateView):
+class AdvertisingCreateView(MarketerRequiredMixin, CreateView):
     model = Advertising
     fields = "__all__"
     template_name = "ads/ads-create.html"
     success_url = reverse_lazy("advertising_companies:ads-list")
 
 
-class AdvertisingListView(LoginRequiredMixin, ListView):
+class AdvertisingListView(MarketerRequiredMixin, ListView):
     template_name = "ads/ads-list.html"
     model = Advertising
     context_object_name = "ads"
 
 
-class AdvertisingDeleteView(LoginRequiredMixin, DeleteView):
+class AdvertisingDeleteView(MarketerRequiredMixin, DeleteView):
     template_name = "ads/ads-delete.html"
     model = Advertising
     success_url = reverse_lazy("advertising_companies:ads-list")
 
 
-class AdvertisingUpdateView(LoginRequiredMixin, UpdateView):
+class AdvertisingUpdateView(MarketerRequiredMixin, UpdateView):
     model = Advertising
     fields = "__all__"
     template_name = "ads/ads-edit.html"
@@ -44,7 +44,7 @@ class AdvertisingUpdateView(LoginRequiredMixin, UpdateView):
         return reverse("advertising_companies:ads-detail", kwargs={"pk": self.object.pk})
 
 
-class AdvertisingStatisticView(LoginRequiredMixin, ListView):
+class AdvertisingStatisticView(MarketerRequiredMixin, ListView):
     template_name = 'ads/ads-statistic.html'
     model = Advertising
     context_object_name = "ads"
