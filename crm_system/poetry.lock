@@ -105,6 +105,26 @@ files = [
 Django = ">=4.2"
 
 [[package]]
+name = "django-phonenumber-field"
+version = "8.2.0"
+description = "An international phone number field for django models."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "django_phonenumber_field-8.2.0-py3-none-any.whl", hash = "sha256:291f5c5e4abb27a9faaa508ef14b27bd307fb3b5b7570b1594a32a696cefb8ec"},
+    {file = "django_phonenumber_field-8.2.0.tar.gz", hash = "sha256:a3efb8af49f48ba1e1fbaba778244852772315fc95076e571e20e4572648456b"},
+]
+
+[package.dependencies]
+Django = ">=4.2"
+phonenumberslite = {version = ">=7.0.2", optional = true, markers = "extra == \"phonenumberslite\""}
+
+[package.extras]
+phonenumbers = ["phonenumbers (>=7.0.2)"]
+phonenumberslite = ["phonenumberslite (>=7.0.2)"]
+
+[[package]]
 name = "djangorestframework"
 version = "3.16.1"
 description = "Web APIs for Django, made easy."
@@ -224,6 +244,18 @@ groups = ["main"]
 files = [
     {file = "packaging-25.0-py3-none-any.whl", hash = "sha256:29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484"},
     {file = "packaging-25.0.tar.gz", hash = "sha256:d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f"},
+]
+
+[[package]]
+name = "phonenumberslite"
+version = "9.0.15"
+description = "Python version of Google's common library for parsing, formatting, storing and validating international phone numbers."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "phonenumberslite-9.0.15-py2.py3-none-any.whl", hash = "sha256:4f4633292bcb68fec0781d90618ba319b4fd432f763e82e922cbb3e8e7a4256c"},
+    {file = "phonenumberslite-9.0.15.tar.gz", hash = "sha256:80824b69c73f3eed803237eb027598b13af64045c83b2a33dc081b80b001b568"},
 ]
 
 [[package]]
@@ -606,4 +638,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4"
-content-hash = "3c0098756c5f54b554a457951a917432def32e5462094f2038e5c6f87c286079"
+content-hash = "4ee40967ed2f084de71681ba0efec182d8a30382017d7bca219708d6ee6d6b97"

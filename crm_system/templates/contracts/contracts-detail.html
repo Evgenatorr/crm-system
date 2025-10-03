@@ -11,7 +11,7 @@
                 <p class="card-text">
                     Услуга {{ object.service.title }} действительна с {{ object.start_date|date:"d M Y, H:i" }} по {{ object.end_date|date:"d M Y, H:i" }}
                 </p>
-                <div class="d-flex justify-content-end fw-bold">Сумма контракта: {{ object.sum }}руб</div>
+                <div class="d-flex justify-content-end fw-bold">Сумма контракта: {{ object.cost }}руб</div>
                 <div class="d-flex justify-content-center fw-bold">
                     <a href="/contracts/{{ object.pk }}/edit" class="btn btn-primary">Редактировать</a>
                 </div>

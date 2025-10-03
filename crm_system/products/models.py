@@ -15,11 +15,15 @@ class Product(models.Model):
         ordering = ["title", "price"]
 
     price = models.DecimalField(
-        max_digits=10, decimal_places=2, validators=[MinValueValidator(0)]
+        max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], verbose_name='Стоимость услуги'
     )
-    title = models.CharField(max_length=30, db_index=True)
+    title = models.CharField(max_length=30, db_index=True, verbose_name='Название услуги')
     description = models.TextField(
         max_length=150,
         null=False,
         blank=True,
+        verbose_name='Описание услуги'
     )
+    
+    def __str__(self) -> str:
+        return self.title

@@ -7,34 +7,35 @@ from django.views.generic import (
 )
 from django.urls import reverse, reverse_lazy
 from .models import Product
+from permissions import MarketerRequiredMixin
 
 
-class ProductRetrieveView(DetailView):
+class ProductRetrieveView(MarketerRequiredMixin, DetailView):
     model = Product
     template_name = "products/products-detail.html"
     queryset = Product.objects.all()
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(MarketerRequiredMixin, CreateView):
     model = Product
     fields = "__all__"
     template_name = "products/products-create.html"
     success_url = reverse_lazy("products:products-list")
 
 
-class ProductListView(ListView):
+class ProductListView(MarketerRequiredMixin, ListView):
     template_name = "products/products-list.html"
     model = Product
     context_object_name = "products"
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(MarketerRequiredMixin, DeleteView):
     template_name = "products/products-delete.html"
     model = Product
     success_url = reverse_lazy("products:products-list")
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(MarketerRequiredMixin, UpdateView):
     model = Product
     fields = "__all__"
     template_name = "products/products-edit.html"

@@ -47,6 +47,9 @@ class Command(BaseCommand):
                             self.stdout.write(
                                 self.style.ERROR(f"Разрешение не найдено: {codename}")
                             )
+                manager_group = Group.objects.get(name='Manager')
+                permission = Permission.objects.get(codename='view_potentialclient')
+                manager_group.permissions.add(permission)
             else:
                 self.stdout.write(
                     self.style.WARNING(f"Группа уже существует: {group_name}")
