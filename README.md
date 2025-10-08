@@ -12,13 +12,31 @@
     10. Добавил View для приложений contracts, products, leads, customers, advertising, users
     11. Добавил команды для создания ролей(групп и разрешений) при запуске приложения
     12. Добавил login и logout
-### Что будет сделано:
-    1. Будут доделаны роли и подредактированы html
+    13. Настроил логирование в файл и консоль с уровнем INFO для всех логгеров, WARNING+ для консоли, и INFO+ для файла. Логи записываются в crm_system/logs/crm_system.log
     
 
 ## Запуск проекта:
-1. Создать файл .env в корне проекта(crm_system) по примеру .env.template
-2. Запустить проект docker compose up --build
-3. Дефолтный логин и пароль супер юзера после запуска: 
-    * логин - admin 
+
+### Вариант 1: Через Docker Compose (рекомендуется для полного окружения)
+1. Создать файл .env в корне проекта(crm_system) по примеру .env.template (убедитесь, что DB_ENGINE=postgresql для Docker)
+2. Запустить проект `docker compose up --build`
+3. Дефолтный логин и пароль супер юзера после запуска:
+    * логин - admin
     * пароль - admin123
+
+### Вариант 2: Локально (для разработки)
+1. Установите Python 3.12+
+2. Установите Poetry: `pip install poetry`
+3. В корне проекта (crm_system):
+   - `poetry install` - установка зависимостей
+4. Создайте .env файл: копируйте содержимое из .template.env (по умолчанию DB_ENGINE=sqlite для локальной разработки)
+5. `poetry run python manage.py migrate` - применить миграции
+6. `poetry run python manage.py createsuperuser` или используйте команду `poetry run python manage.py create_superuser` для создания суперпользователя
+7. `poetry run python manage.py runserver` - запустить сервер на http://127.0.0.1:8000/
+8. Дефолтный логин и пароль супер юзера:
+    * логин - admin
+    * пароль - admin123
+
+### Запуск тестов
+- В Bash: `cd crm_system && poetry run python manage.py test`
+- Активрует тестовую базу данных, выполняет все тесты и очищает базу после окончания.
