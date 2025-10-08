@@ -11,12 +11,20 @@ from permissions import ManagerRequiredMixin
 
 
 class CustomerRetrieveView(ManagerRequiredMixin, DetailView):
+    """
+    View для вывода детальной информации о активном клиенте
+    """
+
     model = ActiveClient
     template_name = "customers/customers-detail.html"
     queryset = ActiveClient.objects.all()
 
 
 class CustomerCreateView(ManagerRequiredMixin, CreateView):
+    """
+    View для создания активного клиента
+    """
+
     model = ActiveClient
     fields = "__all__"
     template_name = "customers/customers-create.html"
@@ -24,18 +32,30 @@ class CustomerCreateView(ManagerRequiredMixin, CreateView):
 
 
 class CustomerListView(ManagerRequiredMixin, ListView):
+    """
+    View для вывода списка активных клиентов
+    """
+
     template_name = "customers/customers-list.html"
     model = ActiveClient
     context_object_name = "customers"
 
 
 class CustomerDeleteView(ManagerRequiredMixin, DeleteView):
+    """
+    View для удаление активного клиента
+    """
+
     template_name = "customers/customers-delete.html"
     model = ActiveClient
     success_url = reverse_lazy("customers:customers-list")
 
 
 class CustomerUpdateView(ManagerRequiredMixin, UpdateView):
+    """
+    View для изменения активного клиента
+    """
+
     model = ActiveClient
     fields = "__all__"
     template_name = "customers/customers-edit.html"

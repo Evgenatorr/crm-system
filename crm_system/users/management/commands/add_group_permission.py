@@ -1,3 +1,4 @@
+import logging
 from typing import Any
 from django.contrib.auth.models import User, Group, Permission
 from django.core.management import BaseCommand
@@ -7,6 +8,8 @@ from customers.models import ActiveClient
 from leads.models import PotentialClient
 from products.models import Product
 from contracts.models import Contract
+
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -26,10 +29,12 @@ class Command(BaseCommand):
             },
         }
 
+        logger.info(f"Начинаем настройку групп разрешений")
         for group_name, config in groups_config.items():
             group, created = Group.objects.get_or_create(name=group_name)
 
             if created:
+                logger.info(f"Создана группа: {group_name}")
                 self.stdout.write(self.style.SUCCESS(f"Создана группа: {group_name}"))
                 for model in config["models"]:
                     content_type = ContentType.objects.get_for_model(model)

@@ -1,5 +1,8 @@
+import logging
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
+
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -28,10 +31,12 @@ class Command(BaseCommand):
 
         if not User.objects.filter(username=username).exists():
             User.objects.create_superuser(username, email, password)
+            logger.info(f'Создан суперпользователь {username}')
             self.stdout.write(
                 self.style.SUCCESS(f'Superuser {username} created successfully')
             )
         else:
+            logger.warning(f'Суперпользователь {username} уже существует')
             self.stdout.write(
                 self.style.WARNING(f'Superuser {username} already exists')
             )

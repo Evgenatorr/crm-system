@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-from debug_toolbar.toolbar import debug_toolbar_urls
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from django.conf.urls.static import static
+import sys
 
 
 urlpatterns = [
@@ -23,5 +24,8 @@ urlpatterns = [
 ]
 
 
-if settings.DEBUG:
+if settings.DEBUG and 'test' not in sys.argv:
+    from debug_toolbar.toolbar import debug_toolbar_urls
     urlpatterns += debug_toolbar_urls()
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -11,12 +11,20 @@ from permissions import MarketerRequiredMixin
 
 
 class AdvertisingRetrieveView(MarketerRequiredMixin, DetailView):
+    """
+    View для вывода детальной информации о рекламной компании
+    """
+    
     model = Advertising
     template_name = "ads/ads-detail.html"
     queryset = Advertising.objects.all()
 
 
 class AdvertisingCreateView(MarketerRequiredMixin, CreateView):
+    """
+    View для создания рекламной компании
+    """
+    
     model = Advertising
     fields = "__all__"
     template_name = "ads/ads-create.html"
@@ -24,18 +32,30 @@ class AdvertisingCreateView(MarketerRequiredMixin, CreateView):
 
 
 class AdvertisingListView(MarketerRequiredMixin, ListView):
+    """
+    View для вывода списка рекламных компаний
+    """
+    
     template_name = "ads/ads-list.html"
     model = Advertising
     context_object_name = "ads"
 
 
 class AdvertisingDeleteView(MarketerRequiredMixin, DeleteView):
+    """
+    View для удаления рекламной компании
+    """
+    
     template_name = "ads/ads-delete.html"
     model = Advertising
     success_url = reverse_lazy("advertising_companies:ads-list")
 
 
 class AdvertisingUpdateView(MarketerRequiredMixin, UpdateView):
+    """
+    View для изменения рекламной компании
+    """
+    
     model = Advertising
     fields = "__all__"
     template_name = "ads/ads-edit.html"
@@ -45,6 +65,10 @@ class AdvertisingUpdateView(MarketerRequiredMixin, UpdateView):
 
 
 class AdvertisingStatisticView(MarketerRequiredMixin, ListView):
+    """
+    View для вывода статистики рекламной компании
+    """
+    
     template_name = 'ads/ads-statistic.html'
     model = Advertising
     context_object_name = "ads"

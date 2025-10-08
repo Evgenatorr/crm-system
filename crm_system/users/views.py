@@ -9,6 +9,10 @@ from advertising_companies.models import Advertising
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
+    """
+    View для вывода главной страницы crm
+    """
+    
     template_name = "users/index.html"
 
     def get_context_data(self, **kwargs):
@@ -21,4 +25,8 @@ class IndexView(LoginRequiredMixin, TemplateView):
 
 
 class MyLogoutView(LogoutView):
+    """
+    View для выхода из аккаунта
+    """
+    
     next_page = reverse_lazy("users:login")
